@@ -1,5 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local GetServerTime = ReplicatedStorage:WaitForChild("GetServerTime")
+local GetServerTime = ReplicatedStorage:WaitForChild("RemoteEvent").GetServerTime
 local TimeService = require(game.ServerScriptService:FindFirstChild("TimeService"))
 
 GetServerTime.OnServerEvent:Connect(function(player)

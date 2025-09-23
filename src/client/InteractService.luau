@@ -1,13 +1,13 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local request = ReplicatedStorage.InteractRemote:WaitForChild("request")
-local PlotModel = ReplicatedStorage.PlotModel
-local SeedModels = ReplicatedStorage.SeedModels
+local request = ReplicatedStorage:WaitForChild("RemoteEvent").request
+local Farm = ReplicatedStorage:WaitForChild("Farm")
+
+local plot_model = Farm:WaitForChild("PlotModel").CultivatedPlot
 
 
 local InteractService = {} -- Client's script
 
 	function InteractService.requestCultivating(tool,target)
-		local plot = PlotModel:FindFirstChild("Plot")
 		if target == nil or tool == nil or  target.Name ~= "PlotMesh" then return end
 		if target.Name ~= "PlotMesh" then return end
 		
@@ -16,7 +16,7 @@ local InteractService = {} -- Client's script
 		
 		-- print(CultivateSuccess)
 		-- if not CultivateSuccess then return end
-		local plot_clone = plot:Clone()
+		local plot_clone = plot_model:Clone()
 		plot_clone.Name = "CultivatedPlot"
 		plot_clone.CFrame = target.CFrame
 		plot_clone.Parent = target.Parent
@@ -27,7 +27,7 @@ local InteractService = {} -- Client's script
 		if tool == nil or target == nil then return end
 		if target.Name ~= "CultivatedPlot" then return end
 		print(target)
-		local seed_model = SeedModels:FindFirstChild(tool.Name)
+		local seed_model = nil
 		
 		if seed_model == nil then return end
 		

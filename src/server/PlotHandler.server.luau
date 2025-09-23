@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local response = ReplicatedStorage.InteractRemote:WaitForChild("response")
+local response = ReplicatedStorage.RemoteEvent:WaitForChild("response")
 
 local PlotData = require(script.Parent.PlotData)
 local TimeService = require(game.ServerScriptService:FindFirstChild("TimeService"))
@@ -15,7 +15,7 @@ Players.PlayerAdded:Connect(function(player)
 		PlotData:Load() --load in case
 		print(i)
 		allPlayersPlot[player.UserId][PlotData.Index] = PlotData
-		response.Cultivate:FireClient(player,PlotData)
+		response.Interact.PlotHandler:FireClient(player,PlotData)
 	end
 	local serverTime = TimeService.GetServerTime()
 	
