@@ -6,10 +6,10 @@ PlotData.__index = PlotData
 function PlotData.new(player,plot_index, cultivated: boolean,plot_plant,mature_time, water_cd)
 	local LocalPlotData = {
 		Key = player.UserId,
-		Index = plot_index or "None",
-		Plant = plot_plant or "None",
+		Index = plot_index or nil,
+		Plant = plot_plant or nil,
 		Cultivated = cultivated or false,
-		MatureTime = mature_time or "None",
+		MatureTime = mature_time or nil,
 		WaterCD = water_cd or nil,
 		DataStore = DataStoreService:GetDataStore("Data")
 	}
@@ -48,7 +48,7 @@ function PlotData:Load()
 
 	if success then
 		if Result then
-			local a=1
+			print(Result)
 		end
 	else
 		warn("There was an error with fetching your data")

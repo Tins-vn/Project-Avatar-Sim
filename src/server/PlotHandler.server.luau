@@ -3,27 +3,30 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local response = ReplicatedStorage.RemoteEvent:WaitForChild("response")
 
-local PlotData = require(script.Parent.PlotData)
+local PlotDataModule = require(script.Parent.PlotData)
 local TimeService = require(game.ServerScriptService:FindFirstChild("TimeService"))
 
 local allPlayersPlot ={}
 
 Players.PlayerAdded:Connect(function(player)
-	allPlayersPlot[player.UserId] = {} 
+	allPlayersPlot[player.UserId] = {}
+
 	for i = 1, 6,1 do
-		local PlotData = PlotData.new(player,i,true,"Tomato",12, 12 )
-		PlotData:Load() --load in case
-		print(i)
-		allPlayersPlot[player.UserId][PlotData.Index] = PlotData
-		response.Interact.PlotHandler:FireClient(player,PlotData)
+		local LocalPlotData = PlotDataModule.new(player,i,false)
+		LocalPlotData:Load() --load in case
+		allPlayersPlot[player.UserId][LocalPlotData.Index] = LocalPlotData
+		response.Interact.PlotHandler:FireClient(player,LocalPlotData)
 	end
 	local serverTime = TimeService.GetServerTime()
-	
+
 	print(allPlayersPlot)
 end)
 
-local function CultivateFunction(player, index)
-	if index == nil then return end
-	local Plot = PlotData.new(player, index, "potato")
-	return true
-end
+Players.PlayerRemoving:Connect(function(player)
+	local pData = allPlayersPlot[player.UserId] --search for player's data using user id
+	if pData then
+		pData:Save() --save data
+		allPlayersPlot[player.UserId] = nil --remove it
+	end
+end)
+
