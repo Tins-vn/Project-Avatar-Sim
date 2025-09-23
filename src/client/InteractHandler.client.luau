@@ -11,7 +11,7 @@ mouse.Button1Down:Connect(function()
 	local starttime = os.clock()
 	local tool = character:FindFirstChildOfClass("Tool")
 	local target = mouse.Target
-	print(target)
 	InteractService.mainProcess(tool, target)
 	print(os.clock() - starttime)
 end)
+
