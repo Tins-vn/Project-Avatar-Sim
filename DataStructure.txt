@@ -1,0 +1,33 @@
+Key = userID
+Value = {
+    "Cash" : int,
+
+    "Inventory": [
+        {id, quantity}, {id, quantity}, {id, quantity}, ...
+    ]
+
+    "FurnitureData" : [
+        {name,x,y,z}, {name,x,y,z}, {name,x,y,z}, ...
+    ]
+
+    "PlotData" : [
+        {
+        self.Index, 
+        self.Plant,
+        self.Cultivated,
+        self.MatureTime,
+        self.WaterCD
+        },
+        {
+        self.Index, 
+        self.Plant,
+        self.Cultivated,
+        self.MatureTime,
+        self.WaterCD
+        }, 
+
+        .
+        .
+        .
+    ]  
+}

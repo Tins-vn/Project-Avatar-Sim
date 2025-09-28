@@ -3,6 +3,8 @@ local DataStoreService = game:GetService("DataStoreService")
 local PlotData = {}
 PlotData.__index = PlotData
 
+local PlotsDataTemplate = {}
+
 function PlotData.new(player,plot_index, cultivated: boolean,plot_plant,mature_time, water_cd)
 	local LocalPlotData = {
 		Key = player.UserId,
@@ -26,6 +28,7 @@ function PlotData:Save()
 		self.MatureTime,
 		self.WaterCD
 	}
+	
 	local success, err = pcall(function()
 		savedData = self.DataStore:SetAsync(self.Key, tabletosave)
 	end)
@@ -47,9 +50,7 @@ function PlotData:Load()
 	end)
 
 	if success then
-		if Result then
-			print(Result)
-		end
+		if Result then return Result end
 	else
 		warn("There was an error with fetching your data")
 		warn(err)
